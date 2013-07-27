@@ -10,3 +10,4 @@ package org.chronos.wikiparsing.messages
 abstract class AbstractMessage
 case class ExtractorMessage(message: String)
 case class StartExtractor(file: String)
+case class Page(content: String)
