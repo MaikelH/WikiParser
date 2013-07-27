@@ -1,7 +1,7 @@
 package org.chronos.wikiparsing.workers
 
 import akka.actor.{Props, Actor}
-import org.chronos.wikiparsing.messages.{Page, StartExtractor}
+import org.chronos.wikiparsing.messages.{PageMessage, StartExtractor}
 import scala.xml.pull.{EvElemEnd, EvText, EvElemStart, XMLEventReader}
 import scala.io.Source
 import akka.event.Logging
@@ -55,7 +55,8 @@ class PageExtractor extends Actor {
           builder.append("</title>")
         }
         case EvElemEnd(_, "page") => {
-          router ! Page(builder.mkString)
+          builder.append("</page>")
+          router ! PageMessage(builder.mkString)
           // Use setLength here instead of new so that backing buffer stays intact.
           builder.setLength(0)
         }
