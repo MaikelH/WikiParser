@@ -16,7 +16,7 @@ import akka.routing.SmallestMailboxRouter
  */
 class PageProcessor extends Actor {
   val log = Logging(context.system, this)
-  val router = context.actorOf(Props[TaskSeparator].withRouter(SmallestMailboxRouter(5)), "TaskSeparator")
+  val router = context.actorSelection("/user/Separator")
 
   def receive: Actor.Receive = {
     case PageMessage(content) => processPage(content)
@@ -24,6 +24,7 @@ class PageProcessor extends Actor {
   }
 
   def processPage(content: String) = {
+
     try {
       val page = new Page(XML.loadString(content))
       router ! TaskMessage(page)

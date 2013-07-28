@@ -27,6 +27,7 @@ class PageExtractor extends Actor {
   }
 
   def processFile(file: String) = {
+
     log.info("Received file: " + file )
     val source = Source.fromFile(file)
 
