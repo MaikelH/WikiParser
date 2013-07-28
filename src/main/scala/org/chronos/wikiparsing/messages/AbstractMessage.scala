@@ -1,13 +1,15 @@
 package org.chronos.wikiparsing.messages
 
+import scala.xml.Elem
+import org.chronos.wikiparsing.utilities.Page
+
 /**
  * Created with IntelliJ IDEA.
  * User: Maikel
  * Date: 27-7-13
- * Time: 21:46
- * To change this template use File | Settings | File Templates.
  */
 abstract class AbstractMessage
 case class ExtractorMessage(message: String)
 case class StartExtractor(file: String)
-case class Page(content: String)
+case class PageMessage(content: String)
+case class TaskMessage(content: Page)
