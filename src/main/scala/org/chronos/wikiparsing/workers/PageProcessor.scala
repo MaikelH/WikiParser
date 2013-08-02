@@ -24,7 +24,6 @@ class PageProcessor extends Actor {
   }
 
   def processPage(content: String) = {
-
     try {
       val elem = XML.loadString(content)
       val page = new Page((elem \ "title").text, (elem \ "text").text)

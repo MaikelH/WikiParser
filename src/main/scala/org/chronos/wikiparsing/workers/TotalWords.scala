@@ -10,7 +10,6 @@ import akka.event.Logging
  * User: Maikel
  * Date: 28-7-13
  * Time: 21:48
- * To change this template use File | Settings | File Templates.
  */
 class TotalWords extends Actor{
   val log = Logging(context.system, this)

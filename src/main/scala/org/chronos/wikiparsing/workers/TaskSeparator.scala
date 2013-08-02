@@ -2,7 +2,6 @@ package org.chronos.wikiparsing.workers
 
 import akka.actor.{Props, Actor}
 import akka.event.Logging
-import org.chronos.wikiparsing.utilities.Page
 import org.chronos.wikiparsing.messages.TaskMessage
 import akka.routing.SmallestMailboxRouter
 
