@@ -24,9 +24,9 @@ class PageProcessor extends Actor {
   }
 
   def processPage(content: String) = {
-
     try {
-      val page = new Page(XML.loadString(content))
+      val elem = XML.loadString(content)
+      val page = new Page((elem \ "title").text, (elem \ "text").text)
       router ! TaskMessage(page)
     }
     catch  {
