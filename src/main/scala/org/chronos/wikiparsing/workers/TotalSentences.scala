@@ -2,7 +2,7 @@ package org.chronos.wikiparsing.workers
 
 import akka.actor.Actor
 import akka.event.Logging
-import org.chronos.wikiparsing.messages.TaskMessage
+import org.chronos.wikiparsing.messages.{TotalSentenceCountMessage, TaskMessage}
 import org.chronos.wikiparsing.utilities.Page
 
 /**
@@ -14,11 +14,12 @@ import org.chronos.wikiparsing.utilities.Page
 class TotalSentences extends Actor {
 
   val log = Logging(context.system, this)
+  val mergeActor = context.actorSelection("/user/Merge")
 
   def processMessage(page: Page) =  page.Text.split("\\.\\s[A-Z]").size
 
   def receive: Actor.Receive = {
-    case TaskMessage(page) => processMessage(page)
+    case TaskMessage(page) => mergeActor ! TotalSentenceCountMessage(page.Title, processMessage(page))
     case _ =>
   }
 }

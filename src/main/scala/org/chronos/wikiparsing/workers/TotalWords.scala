@@ -1,7 +1,7 @@
 package org.chronos.wikiparsing.workers
 
 import akka.actor.Actor
-import org.chronos.wikiparsing.messages.TaskMessage
+import org.chronos.wikiparsing.messages.{TotalWordCountMessage, TaskMessage}
 import org.chronos.wikiparsing.utilities.Page
 import akka.event.Logging
 
@@ -13,13 +13,12 @@ import akka.event.Logging
  */
 class TotalWords extends Actor{
   val log = Logging(context.system, this)
+  val mergeActor = context.actorSelection("/user/Merge")
 
-  def findWordAmount(page: Page) = {
-    val n = page.Text.split("\\w+").size
-  }
+  def findWordAmount(page: Page) = page.Text.split("\\W+").size
 
   def receive = {
-    case TaskMessage(page) => findWordAmount(page)
+    case TaskMessage(page) => mergeActor ! TotalWordCountMessage(page.Title, findWordAmount(page))
     case _ =>
   }
 }

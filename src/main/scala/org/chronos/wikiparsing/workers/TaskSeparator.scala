@@ -19,11 +19,10 @@ class TaskSeparator extends Actor {
 
   def receive: Actor.Receive = {
     case TaskMessage(page) => {
-      log.debug("Received: " + page.Title)
       TotalWords ! TaskMessage(page)
       TotalSyllables ! TaskMessage(page)
       TotalSentences ! TaskMessage(page)
     }
-    case _ =>  log.info("Unknown message." )
+    case _ =>  log.warning("Unknown message." )
   }
 }
